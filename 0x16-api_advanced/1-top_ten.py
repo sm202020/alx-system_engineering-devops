@@ -1,24 +1,29 @@
 #!/usr/bin/python3
-'''
-    this module contains the function top_ten
-'''
+"""Query Reddit API to determine subreddit sub count
+"""
+
 import requests
-from sys import argv
 
 
 def top_ten(subreddit):
-    '''
-        returns the top ten posts for a given subreddit
-    '''
-    user = {'User-Agent': 'Lizzie'}
-    url = requests.get('https://www.reddit.com/r/{}/hot/.json?limit=10'
-                       .format(subreddit), headers=user).json()
-    try:
-        for post in url.get('data').get('children'):
-            print(post.get('data').get('title'))
-    except Exception:
-        print(None)
+    """Request top ten hot posts of subreddit
+    from Reddit API
+    """
+    # set custom user-agent
+    user_agent = '0x16-api_advanced-jmajetich'
+    url = 'https://www.reddit.com/r/{}/hot.json?limit=10'.format(subreddit)
 
+    # custom user-agent avoids request limit
+    headers = {'User-Agent': user_agent}
 
-if __name__ == "__main__":
-    top_ten(argv[1])
+    r = requests.get(url, headers=headers, allow_redirects=False)
+
+    if r.status_code != 200:
+        print('None')
+    else:
+        # load response unit from json
+        data = r.json()['data']
+        # extract list of pages
+        posts = data['children']
+        for post in posts:
+            print(post['data']['title'])
