@@ -40,7 +40,7 @@ frontend smithi.tech-frontend
 
 backend smithi.tech-backend
     balance roundrobin
-    server 503260-web-01 18.214.87.88:80 check
+    server 503260-web-01 54.160.106.151:80 check
     server 503260-web-02 54.237.104.218:80 check
 "
 
