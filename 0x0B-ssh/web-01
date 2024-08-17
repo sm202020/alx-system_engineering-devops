@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
 # Connects to my school server
 
-ssh -i ~/.ssh/school ubuntu@35.168.3.241
+<<<<<<< HEAD
+ssh -i ~/.ssh/school ubuntu@54.157.178.165
+=======
+ssh -i ~/.ssh/school ubuntu@54.157.178.165
+>>>>>>> d8f932be090bfe8b1a8bed7e1b3e1af53eb14fcf
