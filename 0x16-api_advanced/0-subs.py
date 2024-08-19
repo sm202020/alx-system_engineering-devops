@@ -1,26 +1,19 @@
 #!/usr/bin/python3
-"""Module that scrapes reddit api"""
-
+""" Function that queries the Reddit API """
 import requests
+import sys
 
 
 def number_of_subscribers(subreddit):
-    """
-       Scrapes reddit api and gets the number of subscribers
-    """
-    if subreddit is None or not isinstance(subreddit, str):
-        return 0
-    header = {'User-Agent': 'Get subscribers info'}
-    url = f'https://www.reddit.com/r/{subreddit}/about.json'
+    """  Args:
+        subreddit: subreddit name
+    Returns:
+        number of subscribers to the subreddit,
+        or 0 if subreddit requested is invalid"""
+    headers = {'User-Agent': 'xica369'}
+    url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
+    response = requests.get(url, headers=headers, allow_redirects=False)
 
-    data = requests.get(url, headers=header, allow_redirects=False)
-
-    if data.status_code == 200:
-        try:
-            data = data.json()
-            subscribers = data['data']['subscribers']
-            return subscribers
-        except (KeyError, ValueError):
-            return 0
-    else:
-        return 0
+    if response.status_code == 200:
+        return (response.json().get("data").get("subscribers"))
+    return (0)
